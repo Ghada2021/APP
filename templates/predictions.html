@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Predictions Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="static/css/my-login.css">
+    <style>  
+        .result-container {
+            background-color: #FFFFFF; 
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        
+        label {
+            color: #2a2a84; 
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+      <title>Inetum</title>
+
+      <!-- slider stylesheet -->
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+    
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+    
+      <!-- fonts style -->
+      <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="static/css/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="static/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+    <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="index.html">
+                <span>
+                  Inetum
+                </span>
+              </a>
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+    
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+                  <ul class="navbar-nav  ">
+                    <li class="nav-item ">
+                      <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('about') }}"> Dashboards</a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{ url_for('predictions') }}"> Attacks </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+                <div class="quote_btn-container ">
+                  <a href="">
+                    <img src="static/images/call.png" alt="">
+                    <span>
+                      Call : + 21653227764
+                    </span>
+                  </a>
+                  <form class="form-inline">
+                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                  </form>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+        </header>
+        <!-- end header section -->
+    </div>
+	<section class="service_section layout_padding">
+        <div class="container-fluid">
+            <div class="heading_container">
+                <h2>
+                  Our Services
+                </h2>
+                <p>
+                  Put all the necessary information for the safety of your APIs
+                </p>
+            </div>
+			<div class="row justify-content-md-center h-100">
+				<div class="container">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-8 mx-auto">
+                            {% if svm_prediction in [0,1,2] %}
+                            <div class="alert alert-primary alert-dismissible fade show result-container" role="alert">
+                                <h3>SVM Prediction:</h3>
+                                {% if svm_prediction == 0 %}
+                                    <p>Low Risk</p>
+                                {% elif svm_prediction == 2 %}
+                                    <p>High Risk</p>
+                                {% else %}
+                                    <p>Moderate Risk</p>
+                                {% endif %}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+
+							<form action="#" method="POST">
+                                <label for="inter_api_access_duration"><span style="color: white; font-weight: bold;">Inter API Access Duration (sec):</span></label>
+                                <input type="text" id="inter_api_access_duration" name="inter_api_access_duration" required><br><br>
+                            
+                                <label for="sequence_length"><span style="color: white; font-weight: bold;">Sequence Length (count):</span></label>
+                                <input type="text" id="sequence_length" name="sequence_length" required><br><br>
+                            
+                                <label for="vsession_duration"><span style="color: white; font-weight: bold;">VSession Duration (min):</span></label>
+                                <input type="text" id="vsession_duration" name="vsession_duration" required><br><br>
+                            
+                                <label for="num_unique_apis"><span style="color: white; font-weight: bold;">Number of Unique APIs:</span></label>
+                                <input type="number" id="num_unique_apis" name="num_unique_apis" required><br><br>
+                            
+                                <label for="source"><span style="color: white; font-weight: bold;">Source:</span></label>
+                                <input type="number" id="source" name="source" required><br><br>
+                            
+                                <label for="statusCode"><span style="color: white; font-weight: bold;">Status Code:</span></label>
+                                <input type="number" id="statusCode" name="statusCode" required><br><br>
+                            
+                                <label for="auth_method"><span style="color: white; font-weight: bold;">Authentication Method:</span></label>
+                                <input type="number" id="auth_method" name="auth_method" required><br><br>
+                            
+                                <div class="form-group m-0">
+                                    <button type="submit" class="btn btn-primary btn-block" style="background-color: #d8bf36; font-weight: bold;">
+                                        Predict Risk
+                                    </button>
+                                </div>
+                            </form>
+                            
+						</div>
+					</div>
+					
+                </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAgV2Zv8yXSbGP6I2c2uLc7cfdB4fV+T8BtSRqzZnFYVc0S7/Z8p8xV40ylQ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script>
+    $(document).ready(function() {
+        $(".alert .close").click(function(){
+            $(this).closest(".alert").remove();
+        });
+    });
+</script>
+	<script src="static/js/my-login.js"></script>
+</body>
+</html>

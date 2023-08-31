@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 
+  <meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Predictions Page</title>
+
+    <style>  
+        .result-container {
+            background-color: #FFFFFF; 
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        
+        label {
+            color: #2a2a84; 
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Inetum</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="static/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="static/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              Inetum
+            </span>
+          </a>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="s-1"> </span>
+            <span class="s-2"> </span>
+            <span class="s-3"> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('about') }}"> Dashboards</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('service') }}"> Attacks </a>
+                </li>
+                
+              </ul>
+            </div>
+            <div class="quote_btn-container ">
+              <a href="">
+                <img src="static/images/call.png" alt="">
+                <span>
+                  Call : + 21653227764
+                </span>
+              </a>
+              <form class="form-inline">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- service section -->
+  <section class="service_section layout_padding">
+    <div class="container-fluid">
+      <div class="heading_container">
+        <h2>
+          Our Services
+        </h2>
+        <p>
+          Put all the necessary information for the safety of your APIs
+        </p>
+      </div>
+      <div class="row justify-content-center">
+        <!-- Centering the table -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <form action="#" method="POST">
+                {% if svm_prediction in [0,1,2] %}
+                <div class="alert alert-primary alert-dismissible fade show result-container" role="alert">
+                    <h3>SVM Prediction:</h3>
+                    {% if svm_prediction == 0 %}
+                        <p>Low Risk</p>
+                    {% elif svm_prediction == 2 %}
+                        <p>High Risk</p>
+                    {% else %}
+                        <p>Moderate Risk</p>
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="inter_api_access_duration"  placeholder="inter_api_access_duration" name="inter_api_access_duration" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="sequence_length" placeholder="sequence_length" name="sequence_length" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col">
+                    <input type="text" class="form-control" id="vsession_duration" placeholder="vsession_duration" name="vsession_duration" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="num_unique_apis" placeholder="num_unique_apis" name="num_unique_apis" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="source" placeholder="source" name="source" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="statusCode" placeholder="statusCode" name="statusCode" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="auth_method" placeholder="Authentication Method" name="auth_method" required>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn-box" style="background-color: #d8bf36; width: 100px; height: 100px; border-radius: 50%; display: flex; justify-content: center; align-items: center;font-weight: bold;color: white;">Predict Risk</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      
+      
+    </div>
+  </section>
+  <!-- end service section -->
+
+  <div class="footer_bg">
+
+    <!-- contact section -->
+  
+
+
+    <!-- end contact section -->
+
+
+
+    <!-- info section -->
+    <section class="info_section layout_padding2">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="info_logo">
+              <h3>
+                Inetum
+              </h3>
+              <p>
+                
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_links">
+              <h4>
+                BASIC LINKS
+              </h4>
+              <ul class="  ">
+                <li class=" ">
+                  <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="">
+                  <a class="" href="about.html"> About</a>
+                </li>
+                <li class="active">
+                  <a class="" href="service.html"> Services </a>
+                </li>
+                <li class="">
+                  <a class="" href="#contactLink">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_contact">
+              <h4>
+                CONTACT DETAILS
+              </h4>
+              <a href="">
+                <div class="img-box">
+                  <img src="static/images/telephone-white.png" width="12px" alt="">
+                </div>
+                <p>
+                  +21653227764
+                </p>
+              </a>
+              <a href="">
+                <div class="img-box">
+                  <img src="static/images/envelope-white.png" width="18px" alt="">
+                </div>
+                <p>
+                  Inetum@gmail.com
+                </p>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info_form ">
+              <h4>
+                NEWSLETTER
+              </h4>
+              <form action="">
+                <input type="email" placeholder="Enter your email">
+                <button>
+                  Subscribe
+                </button>
+              </form>
+              <div class="social_box">
+                <a href="">
+                  <img src="static/images/info-fb.png" alt="">
+                </a>
+                <a href="">
+                  <img src="static/images/info-twitter.png" alt="">
+                </a>
+                <a href="">
+                  <img src="static/images/info-linkedin.png" alt="">
+                </a>
+                <a href="">
+                  <img src="static/images/info-youtube.png" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end info_section -->
+
+
+    <!-- footer section -->
+    
+    <!-- footer section -->
+
+  </div>
+
+  <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="static/js/bootstrap.js"></script>
+  
+</body>
+
+</html>
